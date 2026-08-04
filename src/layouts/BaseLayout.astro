@@ -1,0 +1,291 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Blog de Rodrigo' } = Astro.props;
+const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL;
+const siteBase = base.endsWith('/') ? base : base + '/';
+---
+
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <script is:inline>
+      const theme =
+        localStorage.getItem('theme') ??
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    </script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <a href={siteBase} class="brand">
+          <span class="brand__mark">~</span>
+          <span>blog de rodrigo</span>
+        </a>
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          type="button"
+          aria-label="Cambiar tema"
+        >
+          <span aria-hidden="true">☾</span>
+        </button>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <span>Rodrigo Poblete Paredes · {year}</span>
+      </footer>
+    </div>
+
+    <script>
+      const toggle = document.getElementById('theme-toggle');
+      const icon = toggle?.querySelector('span');
+      const root = document.documentElement;
+
+      function syncIcon() {
+        if (icon) icon.textContent = root.dataset.theme === 'dark' ? '☀' : '☾';
+      }
+
+      toggle?.addEventListener('click', () => {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        localStorage.setItem('theme', next);
+        syncIcon();
+      });
+
+      syncIcon();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* ---------- tema ---------- */
+  :root {
+    --bg: #fdfaf3;
+    --surface: #fffdf8;
+    --header-bg: rgba(253, 250, 243, 0.92);
+    --text: #2b2925;
+    --muted: #706a5e;
+    --border: #e2dbca;
+    --accent: #9c5a2e;
+    --code-bg: #f2ecdf;
+    --code-text: #40392f;
+    --serif: Georgia, 'Times New Roman', serif;
+    --mono: 'Courier New', Courier, monospace;
+  }
+  html[data-theme='dark'] {
+    --bg: #191713;
+    --surface: #211f1a;
+    --header-bg: rgba(25, 23, 19, 0.92);
+    --text: #e7e0d2;
+    --muted: #a59c89;
+    --border: #38342a;
+    --accent: #e2a468;
+    --code-bg: #2b2822;
+    --code-text: #d9d2c2;
+  }
+
+  /* ---------- base ---------- */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+  }
+  body {
+    font-family: var(--serif);
+    line-height: 1.8;
+    color: var(--text);
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(rgba(125, 110, 80, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125, 110, 80, 0.02) 1px, transparent 1px);
+    background-size: 26px 26px;
+    min-height: 100vh;
+  }
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  main {
+    flex: 1;
+    width: 100%;
+  }
+
+  /* ---------- tipografia compartida ---------- */
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  h1,
+  h2,
+  h3 {
+    line-height: 1.3;
+    font-weight: 600;
+  }
+  p {
+    margin-bottom: 1.25rem;
+  }
+  ul,
+  ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  hr {
+    border: none;
+    border-top: 1px dashed var(--border);
+    margin: 2.5rem 0;
+  }
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    margin: 1.75rem 0;
+    color: var(--muted);
+    font-style: italic;
+  }
+  code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+  img {
+    max-width: 100%;
+    border-radius: 4px;
+  }
+
+  /* ---------- header ---------- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 0;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--header-bg);
+    backdrop-filter: blur(8px);
+  }
+  .brand {
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    color: var(--text);
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+  .brand:hover {
+    text-decoration: none;
+  }
+  .brand__mark {
+    color: var(--accent);
+  }
+  .theme-toggle {
+    width: 2.2rem;
+    height: 2.2rem;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    color: var(--text);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ---------- footer ---------- */
+  .site-footer {
+    margin-top: 4rem;
+    padding: 1.25rem 0 2.5rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+    color: var(--muted);
+  }
+
+  /* ---------- tags (compartido) ---------- */
+  .tag {
+    display: inline-block;
+    padding: 0.1rem 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: lowercase;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+  }
+
+  /* ---------- badges de tecnología ---------- */
+  .tech-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.05rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface);
+    font-family: var(--mono);
+    font-size: 0.85em;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: nowrap;
+    vertical-align: baseline;
+  }
+  .tech-badge svg {
+    width: 14px;
+    height: 14px;
+    flex: none;
+  }
+  .tech-badge path {
+    fill: var(--tech-color);
+  }
+</style>

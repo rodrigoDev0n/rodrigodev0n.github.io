@@ -1,0 +1,26 @@
+# dependencias
+node_modules/
+
+# build
+dist/
+
+# astro
+.astro/
+
+# entorno
+.env
+.env.*
+
+# sistema
+.DS_Store
+Thumbs.db
+
+# editores
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# logs
+npm-debug.log*

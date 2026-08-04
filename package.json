@@ -1,0 +1,15 @@
+{
+  "name": "blog-rodrigo",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^5.2.0",
+    "astro": "^4.16.0",
+    "simple-icons": "^16.28.0"
+  }
+}
