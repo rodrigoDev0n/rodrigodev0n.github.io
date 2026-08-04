@@ -6,8 +6,6 @@ interface Props {
 
 const { title, description = 'Blog de Rodrigo' } = Astro.props;
 const year = new Date().getFullYear();
-const base = import.meta.env.BASE_URL;
-const siteBase = base.endsWith('/') ? base : base + '/';
 ---
 
 <!doctype html>
@@ -27,7 +25,7 @@ const siteBase = base.endsWith('/') ? base : base + '/';
   <body>
     <div class="page">
       <header class="site-header">
-        <a href={siteBase} class="brand">
+        <a href="/" class="brand">
           <span class="brand__mark">~</span>
           <span>blog de rodrigo</span>
         </a>
