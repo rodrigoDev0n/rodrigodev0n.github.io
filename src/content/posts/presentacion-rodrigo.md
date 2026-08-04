@@ -4,7 +4,7 @@ author: "Rodrigo Poblete"
 description: "Que es lo que me encuentro haciendo actualmente."
 pubDate: "2026-06-20"
 tags: ["Proyecto actual", "Automatización de docker"]
-repos: ["https://github.com/rodrigoDev0n/Docker_auto_arquitecture"]
+repos: ["https://github.com/rodrigoDev0n/Docker_auto_arquitecture", "https://github.com/rodrigoDev0n/Docker_auto_arquitecture_backend"]
 ---
 
 ## Bienvenido a este post en donde te contare en que me encuentro trabajando actualmente y su repositorio.
