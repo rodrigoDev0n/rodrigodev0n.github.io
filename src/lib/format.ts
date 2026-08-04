@@ -11,6 +11,6 @@ export function slugFromId(id: string): string {
 }
 
 export function postHref(id: string): string {
-    return `/posts/${slugFromId(id)}`;
+    return `/posts/${slugFromId(id)}/`;
 }
 
