@@ -11,7 +11,7 @@ export function slugFromId(id: string): string {
 }
 
 export function postHref(id: string): string {
-    const base = import.meta.env.BASE_URL;
+    const base = 'https://rodrigodev0n.github.io';
     return `${base.endsWith('/') ? base : base + '/'}posts/${slugFromId(id)}`;
 }
 
