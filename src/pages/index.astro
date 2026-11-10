@@ -50,10 +50,11 @@ const laboralExperience = (await getCollection('posts')).filter(post => post.id 
       </li>
     ))}
   </ul>
-
+  {posts.length !== 0 && (
   <section class="intro">
     <h1>Últimos posts</h1>
   </section>
+  )}
   
   <ul class="post-list">
     {posts.map((post) => (
