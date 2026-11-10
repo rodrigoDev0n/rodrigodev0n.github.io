@@ -103,7 +103,7 @@ A lo largo de estos años he tenido la oportunidad de trabajar con distintas her
 
 **Ingeniería en informática**
 
-Actualmente me encuentro en mi último trimestre en la **Universidad Andres Bello**.
+Obtuve el título profesional de Ingeniero en informática en la **Universidad Andres Bello**.
 
 Durante la carrera desarrollé proyectos relacionados con desarrollo web, arquitecturas de software, despliegue de aplicaciones y automatización, siendo mi proyecto de título una plataforma orientada a simplificar el despliegue de aplicaciones mediante Docker.
 
